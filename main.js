@@ -114,14 +114,31 @@ function mostrarCarrito() {
 
   contendorCarrito.innerHTML += `
 <p> total items : ${totalItems} </p>
+<button id="eliminar-item"> eliminar item</button> 
 <p> precio total : $${totalprice.toFixed(3)} </p>
  <button id="vaciar-carrito"> Vaciar Carrito </button> 
+ <button id="finalizar-compra"> Pagar </button> 
 `;
+
+  // boton eleminar item
+  const eliminarItemButton = document.getElementById("eliminar-item");
+  eliminarItemButton.addEventListener("click", () => {
+    cartBurger.pop();
+    mostrarCarrito();
+    localStorage.setItem("carBurger", JSON.stringify(cartBurger));
+  });
+
   // boton vaciar
   const vaciarCarritoButton = document.getElementById("vaciar-carrito");
   vaciarCarritoButton.addEventListener("click", () => {
     cartBurger.length = 0;
     mostrarCarrito();
     localStorage.removeItem("carBurger");
+  });
+
+  //boton pagar
+  const pagarButton = document.getElementById("finalizar-compra");
+  pagarButton.addEventListener("click", () => {
+    alert(); // agregar notify
   });
 }

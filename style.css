@@ -302,6 +302,36 @@ button[id^="comprar-"]:focus {
   outline-offset: 2px;
 }
 
+/* Botón Eliminar Item */
+#eliminar-item {
+  background: linear-gradient(135deg, #ffc107 0%, #e0a800 100%);
+  color: #2b2d42;
+  border: none;
+  padding: 12px 16px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin: 12px 0;
+  display: inline-block;
+}
+
+#eliminar-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(255, 193, 7, 0.3);
+}
+
+#eliminar-item:active {
+  transform: translateY(0px);
+  box-shadow: 0 2px 6px rgba(255, 193, 7, 0.2);
+}
+
+#eliminar-item:focus {
+  outline: 3px solid rgba(255, 193, 7, 0.4);
+  outline-offset: 2px;
+}
+
 /* Separador visual para resumen del carrito */
 #CartBurger-container > p:nth-of-type(n + 7) {
   font-weight: 600;
@@ -409,6 +439,12 @@ button[id^="comprar-"]:focus {
   .nav-item a {
     font-size: 0.75rem;
     padding: 6px 0;
+  }
+
+  #eliminar-item {
+    padding: 10px 12px;
+    font-size: 0.8rem;
+    width: 100%;
   }
 }
 
