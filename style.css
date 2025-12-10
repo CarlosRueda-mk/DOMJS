@@ -186,19 +186,27 @@ h1 {
   outline-offset: 2px;
 }
 
-/* Contenedor del carrito */
+/* Contenedor del carrito (panel fijo en desktop) */
 #CartBurger-container {
-  margin-top: 60px;
-  padding: 24px;
+  position: fixed;
+  right: 20px;
+  top: 84px; /* debajo del navbar */
+  width: 320px;
+  max-width: calc(40vw);
+  max-height: calc(100vh - 120px);
+  overflow-y: auto;
+  margin: 0;
+  padding: 18px;
   background: linear-gradient(135deg, #ffffff 0%, #f9f9f9 100%);
-  border-radius: 16px;
-  box-shadow: 0 8px 24px rgba(35, 35, 70, 0.08);
+  border-radius: 12px;
+  box-shadow: 0 12px 36px rgba(35, 35, 70, 0.12);
   border: 1px solid #e6e9ef;
+  z-index: 120;
 }
 
 #CartBurger-container h2 {
-  font-size: 1.6rem;
-  margin-bottom: 20px;
+  font-size: 1.25rem;
+  margin-bottom: 12px;
   color: var(--brand);
   display: flex;
   align-items: center;
@@ -206,11 +214,11 @@ h1 {
 }
 
 #CartBurger-container h2::before {
-  font-size: 1.8rem;
+  font-size: 1.4rem;
 }
 
 #CartBurger-container p {
-  padding: 10px 0;
+  padding: 8px 0;
   font-size: 0.95rem;
   color: var(--muted);
   border-bottom: 1px solid #f1f3f5;
@@ -218,6 +226,37 @@ h1 {
 
 #CartBurger-container p:last-child {
   border-bottom: none;
+}
+
+/* Empuja el contenido principal para no quedar debajo del carrito en desktop */
+main {
+  margin-right: 380px;
+}
+
+/* Items del carrito */
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #f1f3f5;
+  gap: 12px;
+}
+
+.cart-item:last-of-type {
+  border-bottom: none;
+}
+
+.cart-item p {
+  margin: 0;
+  flex: 1;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.cart-item .eliminar-item {
+  padding: 8px 14px;
+  font-size: 0.8rem;
 }
 
 /* Estilos para total items y precio total */
@@ -228,17 +267,30 @@ h1 {
   padding-top: 16px;
 }
 
-/* Botón Comprar mejorado */
+/* Sistema de botones */
+button {
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+button:active {
+  transform: translateY(1px);
+}
+
+button:focus {
+  outline-offset: 2px;
+}
+
+/* Botón Comprar */
 button[id^="comprar-"] {
   background: linear-gradient(135deg, var(--accent) 0%, #d45a3f 100%);
   color: #fff;
-  border: none;
   padding: 12px 16px;
-  border-radius: 10px;
-  font-weight: 600;
   font-size: 0.95rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
   width: 100%;
   margin-top: auto;
 }
@@ -248,14 +300,8 @@ button[id^="comprar-"]:hover {
   box-shadow: 0 6px 16px rgba(231, 111, 81, 0.3);
 }
 
-button[id^="comprar-"]:active {
-  transform: translateY(0px);
-  box-shadow: 0 2px 6px rgba(231, 111, 81, 0.2);
-}
-
 button[id^="comprar-"]:focus {
   outline: 3px solid rgba(231, 111, 81, 0.4);
-  outline-offset: 2px;
 }
 
 /* Estilos para p:nth-of-type(3) - precio */
@@ -275,16 +321,10 @@ button[id^="comprar-"]:focus {
 #vaciar-carrito {
   background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
   color: #fff;
-  border: none;
   padding: 14px 20px;
-  border-radius: 10px;
-  font-weight: 600;
   font-size: 0.95rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
   margin-top: 20px;
   width: 100%;
-  display: block;
 }
 
 #vaciar-carrito:hover {
@@ -292,44 +332,59 @@ button[id^="comprar-"]:focus {
   box-shadow: 0 6px 16px rgba(220, 53, 69, 0.3);
 }
 
-#vaciar-carrito:active {
-  transform: translateY(0px);
-  box-shadow: 0 2px 6px rgba(220, 53, 69, 0.2);
-}
-
 #vaciar-carrito:focus {
   outline: 3px solid rgba(220, 53, 69, 0.4);
-  outline-offset: 2px;
 }
 
-/* Botón Eliminar Item */
-#eliminar-item {
-  background: linear-gradient(135deg, #ffc107 0%, #e0a800 100%);
-  color: #2b2d42;
-  border: none;
-  padding: 12px 16px;
+/* Botón Finalizar / Pagar */
+#finalizar-compra {
+  background: linear-gradient(135deg, #28a745 0%, #218838 100%);
+  color: #fff;
+  padding: 14px 20px;
+  font-size: 0.95rem;
+  margin-top: 12px;
+  width: 100%;
+  display: block;
   border-radius: 10px;
-  font-weight: 600;
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  margin: 12px 0;
-  display: inline-block;
 }
 
-#eliminar-item:hover {
+#finalizar-compra:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(255, 193, 7, 0.3);
+  box-shadow: 0 6px 16px rgba(40, 167, 69, 0.28);
 }
 
-#eliminar-item:active {
-  transform: translateY(0px);
-  box-shadow: 0 2px 6px rgba(255, 193, 7, 0.2);
+#finalizar-compra:focus {
+  outline: 3px solid rgba(40, 167, 69, 0.36);
 }
 
-#eliminar-item:focus {
-  outline: 3px solid rgba(255, 193, 7, 0.4);
-  outline-offset: 2px;
+/* Botón Eliminar Item (mejorado) - usa clase .eliminar-item */
+.eliminar-item {
+  background: transparent;
+  color: var(--brand);
+  border: 1px solid rgba(43, 45, 66, 0.08);
+  padding: 6px 10px;
+  font-size: 0.85rem;
+  border-radius: 8px;
+  margin-left: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.eliminar-item::before {
+  display: inline-block;
+  line-height: 1;
+}
+
+.eliminar-item:hover {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 6px 14px rgba(238, 90, 111, 0.22);
+}
+
+.eliminar-item:focus {
+  outline: 3px solid rgba(238, 90, 111, 0.24);
 }
 
 /* Separador visual para resumen del carrito */
@@ -441,10 +496,28 @@ button[id^="comprar-"]:focus {
     padding: 6px 0;
   }
 
-  #eliminar-item {
-    padding: 10px 12px;
-    font-size: 0.8rem;
-    width: 100%;
+  .cart-item .eliminar-item {
+    padding: 8px 12px;
+    font-size: 0.75rem;
+    margin-left: auto;
+  }
+}
+
+/* En pantallas pequeñas el carrito se muestra debajo del contenido (estático) */
+@media (max-width: 900px) {
+  #CartBurger-container {
+    position: static;
+    width: auto;
+    max-width: none;
+    max-height: none;
+    margin: 24px 0 0 0;
+    padding: 16px;
+    box-shadow: none;
+    border-radius: 12px;
+  }
+
+  main {
+    margin-right: 0;
   }
 }
 
